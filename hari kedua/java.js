@@ -13,7 +13,7 @@ let buah = ["Apel", "Jeruk","Mangga", "Pepaya", "Nangka"]
 console.table(buah);
 
 
-let user = prompt ("Ayash");
+let user = prompt ("Masukkan nama anda:");
 if (user) {
     alert(`hallo, ${user} selamat datang`)
 }

@@ -78,8 +78,13 @@ function sapaUser() {
     console.log("Umur gua= "+ hitungUmur(2006));
 
 // Fungsi mengonversi suhu Celcius ke Fahrenheit.
-    const cToF = (c) => (c * 9/5) + 32;
-    console.log(cToF(40));
+    function konversiSuhu(celcius) {
+    return (celcius * 9 / 5) + 32;
+}
+
+    const suhuC = 30;
+    const suhuF = konversiSuhu(suhuC);
+    console.log(`Suhu ${suhuC}°C = ${suhuF}°F`);
 
 // Fungsi menghitung nilai rata-rata.
     function rataRata(a, b, c) {

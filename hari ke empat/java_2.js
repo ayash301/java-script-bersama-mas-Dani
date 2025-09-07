@@ -82,7 +82,7 @@ function sapaUser() {
     return (celcius * 9 / 5) + 32;
 }
 
-    const suhuC = 30;
+    const suhuC = 50;
     const suhuF = konversiSuhu(suhuC);
     console.log(`Suhu ${suhuC}°C = ${suhuF}°F`);
 

@@ -91,7 +91,7 @@ while running:
     show_score()
 
     # Cek tabrakan
-    if check_collision():
+    if check_collision():         
         break
 
     pygame.display.flip()

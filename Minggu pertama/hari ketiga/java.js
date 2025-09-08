@@ -33,7 +33,7 @@
         console.log("login berhasil")
     } else{
         console.log("login gagal")
-    }
+    } 
 
     // Mengecek apakah nilai ujian lulus atau tidak.
      const nilai = 80

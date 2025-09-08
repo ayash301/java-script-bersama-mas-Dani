@@ -59,7 +59,7 @@ function sapaUser() {
     let diskon = function(harga, persen) {
     return harga - (harga * persen / 100);
     };
-    console.log( "Diskon yang didapat RP." +diskon(20000, 25));
+    console.log( "Diskon yang dipat RP." +diskon(20000, 25));
 
 // Fungsi mengurangi angka.
     const kurang = (a, b) => a - b;

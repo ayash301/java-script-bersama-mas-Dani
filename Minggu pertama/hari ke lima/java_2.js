@@ -215,3 +215,7 @@ function pencatatanPengeluaran() {
 let catat = pencatatanPengeluaran();
 console.log(catat(5000)); 
 console.log(catat(2000)); 
+
+
+
+

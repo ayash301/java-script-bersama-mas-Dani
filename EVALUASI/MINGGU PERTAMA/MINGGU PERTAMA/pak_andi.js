@@ -24,3 +24,34 @@ function persentaseKehadiran(jumlahHadir, totalPertemuan) {
 }
 console.log("Persentase kehadiran buat 20 pertemuan dari total 20 pertemuan: " + persentaseKehadiran(20, 20) + "%");
 
+//SOAL5
+class Kursus {
+    constructor(){
+        this.siswa = [];
+    }
+    daftar(nama){
+        this.siswa.push({nama, bayar: false, hadir:0});
+    }
+    bayar(nama){
+        const siswa = this.siswa.find(s => s.nama === nama);
+        if(siswa) siswa.bayar = true;
+    }
+    hadir(nama){
+        const siswa = this.siswa.find(s => s.nama === nama);
+        if(siswa) siswa.hadir += 1;
+    }
+    laporan(){
+        return this.siswa.map(s => ({
+            nama: s.nama,
+            bayar: s.bayar ? "Sudah bayar" : "Belum bayar",
+            hadir: s.hadir
+        }));
+    }
+}   
+const kursus = new Kursus();
+kursus.daftar("Andi");
+kursus.daftar("Budi");
+kursus.daftar("Citra");
+console.log(kursus.laporan()); 
+
+

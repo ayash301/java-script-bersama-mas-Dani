@@ -49,9 +49,9 @@ class Kursus {
     }
 }   
 const kursus = new Kursus();
-kursus.daftar("Andi");
-kursus.daftar("Budi");
-kursus.daftar("Citra");
+kursus.daftar("Jokodi");
+kursus.daftar("Septiandri");
+kursus.daftar("Roulita");
 console.log(kursus.laporan()); 
 
 

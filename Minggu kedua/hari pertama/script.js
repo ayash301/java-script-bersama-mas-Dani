@@ -155,4 +155,4 @@ makanan3.shift()
 makanan3.splice(1,0,"Gado-gado")
 console.table(makanan3);
 
-
+ 

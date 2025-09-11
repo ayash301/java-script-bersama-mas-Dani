@@ -140,4 +140,78 @@ for (let key in bukuFavorit) {
     console.log(key + ": " + bukuFavorit[key]);
 }
 
-    
+
+
+// Ambil nilai dari array [10, 20, 30] jadi variabel x, y, z.
+let arr = [10, 20, 30];
+let [x, y, z] = arr;
+console.log(x, y, z); 
+
+// Ambil nilai pertama dan kedua dari array ["apel", "jeruk", "mangga"]
+let fruits = ["apel", "jeruk", "mangga"];
+let [first, second] = fruits;
+console.log(first, second);
+
+// Ambil nilai pertama dan sisanya dari array [5, 6, 7, 8].
+let numbers = [5, 6, 7, 8];
+let [firstNum, ...rest] = numbers;
+console.log(firstNum); 
+console.log(rest);
+
+// Destructuring array [100, 200] jadi satu dan dua.
+let nums = [100, 200];
+let [satu, dua] = nums;
+console.log(satu, dua);
+// Destructuring array [true, false, true] jadi t1, t2, t3.
+let bools = [true, false, true];
+let [t1, t2, t3] = bools;
+console.log(t1, t2, t3);
+
+// Destructuring object { nama: "Budi", umur: 17 }.
+let person = { nama: "Budi", umur: 17 };
+let { nama, umur } = person;
+console.log(nama, umur);
+
+// Ambil judul dan pengarang dari object { judul: "Buku A", pengarang: "Andi" }.
+let book = { judul: "Tragedi Pondok IT", pengarang: "Andi" };
+let { judul, pengarang } = book;
+console.log(judul,);
+console.log(pengarang);
+// Ambil merk dari object { merk: "Honda", warna: "merah" }
+let car = { merk: "Honda", warna: "merah" };
+let { merk, warna } = car;
+console.log(merk);
+
+// Destructuring { username: "danz", password: "123" }.
+let account = { username: "Ayash", password: "301" };
+let { username, password } = account;
+console.log(username, password);
+// Ambil nama dan kelas dari { nama: "Siti", kelas: "XI" }.
+let student = { nama: "Mulyono", kelas: "XII" };
+let { nama: studentName, kelas: studentClass } = student;
+console.log(studentName, studentClass);
+
+// Gabungkan [1, 2] dengan [3, 4].
+let array1 = [1, 2];
+let array2 = [3, 4];
+let penggabungan = [...array1, ...array2];
+console.log(penggabungan);
+
+
+// Copy array [10, 20, 30] ke array baru.
+let originalArray = [10, 20, 30];
+let copiedArray = [...originalArray];
+console.log(copiedArray);
+// Gabungkan object { a: 1 } dengan { b: 2 }.
+let obj1 = { a: 1 };
+let obj2 = { b: 2 };
+let mergedObject = { ...obj1, ...obj2 };
+console.log(mergedObject);
+// Spread array [5, 6, 7] ke console.log.
+let arrToSpread = [5, 6, 7];
+console.log(...arrToSpread);
+// Gabungkan array ["a", "b"] dan ["c", "d"].
+let letters1 = ["a", "b"];
+let letters2 = ["c", "d"];
+let combinedLetters = [...letters1, ...letters2];
+console.log(combinedLetters);

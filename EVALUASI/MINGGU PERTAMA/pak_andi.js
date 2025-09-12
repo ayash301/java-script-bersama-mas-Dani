@@ -23,7 +23,7 @@ function persentaseKehadiran(jumlahHadir, totalPertemuan) {
     return (jumlahHadir / totalPertemuan) * 100;
 }
 console.log("Persentase kehadiran buat 20 pertemuan dari total 20 pertemuan: " + persentaseKehadiran(20, 20) + "%");
-
+d
 //SOAL5
 class Kursus {
     constructor(){

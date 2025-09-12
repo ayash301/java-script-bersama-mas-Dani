@@ -215,3 +215,69 @@ let letters1 = ["a", "b"];
 let letters2 = ["c", "d"];
 let combinedLetters = [...letters1, ...letters2];
 console.log(combinedLetters);
+
+// Buat function tambah yang bisa nerima banyak angka.
+function tambah(...angka) {
+    return angka.reduce((total, k) => total + k, 0);
+}
+console.log(tambah(1, 2, 3, 4, 5)); 
+console.log(tambah(10, 20)); 
+console.log(tambah(7, 14, 21));
+// Buat function cetak yang nerima banyak string dan print satu-satu.
+function cetak(...strings) {
+    strings.forEach(str => console.log(str));
+}
+cetak("Halo", "Dunia", "Ini", "JavaScript");
+// Buat function kalikan semua angka yang masuk.
+function kalikan(...numbers) {
+    return numbers.reduce((product, q) => product * q, 1);
+}
+console.log(kalikan(1, 2, 3, 4));
+// Buat function gabungKalimat yang nerima banyak kata jadi 1 kalimat.
+function gabungKalimat(...words) {
+    return words.join(' ');
+} 
+console.log(gabungKalimat("Saya", "suka", "ngoding"));  
+// Buat destructuring array [1,2,3,4,5] jadi awal dan ...sisa.
+let angkaArray = [1, 2, 3, 4, 5];
+let [awal, ...sisa] = angkaArray;
+console.log(awal); 
+console.log(sisa);
+
+// Gunakan destructuring array untuk ambil nilai [1, 2, 3, 4].
+let nilaiArray = [1, 2, 3, 4];
+let [n1, n2, n3, n4] = nilaiArray;
+console.log(n1, n2, n3, n4);
+// Buat object mobil dan destructuring merek dan tahun.
+let Mobil = { merek: "Suzuki", tahun: 2020 };
+let { merek, tahun } = Mobil;
+console.log(merek, tahun);
+// Gabungkan dua array pakai spread operator.
+let arrA = [1, 2];
+let arrB = [3, 4];
+let gabunganArr = [...arrA, ...arrB];
+console.log(gabunganArr);
+// Buat function yang nerima banyak angka lalu jumlahkan pakai rest.
+function jumlahkan(...nums) {
+    return nums.reduce((a, b) => a + b, 0);
+}
+console.log(jumlahkan(5, 10, 15));
+
+
+// Object { nama: "Dewi", umur: 16, kelas: "XI" }.
+let murid = { nama: "Boboboi", umur: 17, kelas: "XI" };
+
+// Pisahkan nama dan kelas dengan destructuring.
+let { nama: studentName2, kelas: studentClass2 } = murid;
+console.log(studentName2); 
+console.log(studentClass2);
+// Tambahkan properti baru hobi pakai spread.
+let muridDenganHobi = { ...murid, hobi: "Membaca" };
+console.log(muridDenganHobi);
+// Buat function yang menerima nilai ujian (banyak angka) lalu hitung totalnya dengan rest.
+function totalNilai(...nilai) {
+    return nilai.reduce((total, n) => total + n, 0);
+}
+console.log(totalNilai(80, 90, 85));
+// Tampilkan hasil akhir ke console.
+console.log("Total nilai ujiannya: " + totalNilai(80, 90, 85));

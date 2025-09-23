@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Countdown Waktu Sholat — Interaktif</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#071028;--card:rgba(255,255,255,0.04);--glass:rgba(255,255,255,0.02);
+      --accent:#ffd166;--muted:#9fb0c8;--success:#3fe1a7;--danger:#ff6b6b;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: radial-gradient(1000px 500px at 10% 10%, rgba(33,150,243,0.08), transparent),
+                  linear-gradient(180deg,#051026 0%, #071028 100%);
+      color:#e6f0fb;display:flex;align-items:center;justify-content:center;padding:28px;
+    }
+
+    .app{
+      width:100%;max-width:980px;background:linear-gradient(180deg, rgba(255,255,255,0.02   ), rgba(255,255,255,0.01));
+      border-radius:16px;padding:18px;box-shadow:0 12px 40px rgba(2,6,23,0.7);backdrop-filter: blur(6px);
+      display:grid;grid-template-columns: 1fr 360px;gap:18px;align-items:start;
+    }
+
+    header{display:flex;align-items:center;gap:12px}
+    .logo{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#ff9f1c);display:flex;align-items:center;justify-content:center;font-weight:800;color:#061424}
+    h1{margin:0;font-size:18px}
+    p.lead{margin:2px 0 0;color:var(--muted);font-size:13px}
+
+    .left{padding:12px}
+    .controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+    input[type='text']{flex:1;min-width:180px;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    select,button{padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;cursor:pointer}
+
+    .card{background:var(--card);padding:12px;border-radius:12px}
+    .times-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+    .time-item{background:var(--glass);padding:12px;border-radius:10px;transition:transform .18s ease, box-shadow .18s ease}
+    .time-item:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(0,0,0,0.5)}
+    .time-item .name{font-weight:600}
+    .time-item .t{font-size:16px;margin-top:6px}
+
+    .right{padding:12px}
+    .next-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;display:flex;flex-direction:column;gap:8px}
+    .next-top{display:flex;align-items:center;gap:12px}
+    .prayer-name{font-size:22px;font-weight:800}
+    .prayer-time{color:var(--muted)}
+    .countdown{font-size:28px;font-weight:800}
+
+    .progress{height:10px;border-radius:10px;background:rgba(255,255,255,0.03);overflow:hidden}
+    .progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),#ff9f1c)}
+
+    .meta{font-size:13px;color:var(--muted)}
+
+    .row{display:flex;gap:8px;align-items:center}
+
+    footer{grid-column:1/-1;margin-top:12px;color:var(--muted);font-size:13px;text-align:center}
+
+    .toggle{display:inline-flex;align-items:center;gap:6px;padding:6px;border-radius:999px;border:1px solid rgba(255,255,255,0.04)}
+
+    .small{font-size:13px}
+
+    @media (max-width:920px){.app{grid-template-columns:1fr;}
+      .times-grid{grid-template-columns:repeat(2,1fr)}
+      .right{order:2}
+    }
+  </style>
+</head>
+<body>
+  <div class="app" role="application">
+    <div class="left">
+      <header>
+        <div class="logo">🕌</div>
+        <div>
+          <h1>Countdown Waktu Sholat</h1>
+          <p class="lead">Jadwal hari ini & hitung mundur — otomatis pemberitahuan & suara</p>
+        </div>
+      </header>
+
+      <div class="card">
+        <div class="controls">
+          <input id="cityInput" type="text" placeholder="Ketik kota, mis: Jakarta, ID" />
+          <select id="methodSelect" title="Metode perhitungan">
+            <option value="2">Muslim World League</option>
+            <option value="4">Umm Al-Qura, Makkah</option>
+            <option value="3">Egyptian General Authority</option>
+            <option value="8">Custom</option>
+          </select>
+          <button id="loadCity">Muat</button>
+          <button id="useLoc">Gunakan Lokasi</button>
+          <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+            <div class="toggle small"><input id="soundToggle" type="checkbox" /> <label for="soundToggle">Suara</label></div>
+            <div class="toggle small"><input id="notifToggle" type="checkbox" checked /> <label for="notifToggle">Notifikasi</label></div>
+          </div>
+        </div>
+
+        <div id="cityHeader" class="meta">Jadwal: —</div>
+
+        <div class="times-grid" id="timesGrid" aria-live="polite">
+          <!-- generated -->
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <div class="meta">Tips</div>
+        <div class="small" style="margin-top:6px">Gunakan tombol <strong>Gunakan Lokasi</strong> untuk mendapatkan jadwal otomatis. Aktifkan <strong>Suara</strong> jika ingin alarm singkat ketika waktu tiba.</div>
+      </div>
+    </div>
+
+    <aside class="right">
+      <div class="next-card">
+        <div class="next-top">
+          <div style="width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#ff9f1c);display:flex;align-items:center;justify-content:center;font-size:30px;color:#061424">🕋</div>
+          <div>
+            <div class="prayer-name" id="nextName">-</div>
+            <div class="prayer-time" id="nextTime">-</div>
+            <div class="meta" id="cityDetail">-</div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div class="countdown" id="countdown">--:--:--</div>
+          <div class="meta">Waktu lokal: <span id="localTime">--:--</span></div>
+        </div>
+
+        <div class="progress" aria-hidden>
+          <i id="progressBar"></i>
+        </div>
+
+        <div style="display:flex;gap:8px;margin-top:6px">
+          <button id="testNotif">Tes Notif</button>
+          <button id="testSound">Tes Suara</button>
+          <button id="refresh">Refresh</button>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <div class="meta">Preferensi</div>
+        <div style="margin-top:8px;display:flex;gap:8px;flex-direction:column">
+          <label class="small"><input id="autoStart" type="checkbox" /> Mulai otomatis saat buka</label>
+          <label class="small"><input id="darkPref" type="checkbox" /> Mode gelap (default)</label>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+<script>
+// -------------------- Helpers --------------------
+const $ = id => document.getElementById(id);
+let timings = null;
+let countdownInterval = null;
+let currentNext = null;
+let playSound = false;
+
+// Request notification permission when enabled
+async function ensureNotifications(){
+  if(!('Notification' in window)) return false;
+  if(Notification.permission === 'granted') return true;
+  const p = await Notification.requestPermission();
+  return p === 'granted';
+}
+
+function showNotification(title, body){
+  if($('notifToggle').checked && ('Notification' in window) && Notification.permission === 'granted'){
+    new Notification(title, {body});
+  } else if($('notifToggle').checked){
+    alert(body);
+  }
+}
+
+// Simple melodic beep using WebAudio (no external file)
+function playAdhanShort(){
+  if(!('AudioContext' in window) || !$('soundToggle').checked) return;
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const now = ctx.currentTime;
+  const notes = [523.25, 659.25, 783.99, 1046.5]; // C5, E5, G5, C6
+  notes.forEach((n,i)=>{
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'sine'; o.frequency.value = n;
+    g.gain.value = 0.0001;
+    o.connect(g); g.connect(ctx.destination);
+    o.start(now + i*0.18);
+    g.gain.exponentialRampToValueAtTime(0.12, now + i*0.18 + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, now + i*0.18 + 0.18);
+    o.stop(now + i*0.18 + 0.2);
+  });
+}
+
+// -------------------- Fetching --------------------
+async function fetchTimingsByCoords(lat, lon, method=2){
+  const url = `https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lon}&method=${method}`;
+  const res = await fetch(url);
+  if(!res.ok) throw new Error('Gagal memuat API Aladhan');
+  return res.json();
+}
+
+async function fetchTimingsByCity(city, method=2){
+  const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=&method=${method}`;
+  const res = await fetch(url);
+  if(!res.ok) throw new Error('Gagal memuat API Aladhan');
+  return res.json();
+}
+
+async function reverseGeocode(lat, lon){
+  // Nominatim OpenStreetMap
+  const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10&addressdetails=1`;
+  const res = await fetch(url);
+  if(!res.ok) throw new Error('Gagal memuat nama kota');
+  return res.json();
+}
+
+// -------------------- UI Rendering --------------------
+function renderTimes(t){
+  const grid = $('timesGrid'); grid.innerHTML='';
+  const order = ['Fajr','Sunrise','Dhuhr','Asr','Maghrib','Isha'];
+  order.forEach(k=>{
+    if(!t[k]) return;
+    const el = document.createElement('div'); el.className='time-item';
+    el.innerHTML = `<div class="name">${k}</div><div class="t">${t[k]}</div>`;
+    grid.appendChild(el);
+  });
+}
+
+function parseTimeToDate(timeStr, baseDate){
+  const t = timeStr.trim().slice(0,5);
+  const [hh,mm] = t.split(':').map(x=>parseInt(x,10));
+  return new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate(), hh, mm, 0);
+}
+
+function findNextPrayer(t){
+  const now = new Date();
+  const order = ['Fajr','Dhuhr','Asr','Maghrib','Isha'];
+  for(const name of order){
+    const dt = parseTimeToDate(t[name], now);
+    if(dt > now) return {name, time: dt};
+  }
+  // otherwise tomorrow fajr
+  const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate()+1);
+  const fajr = parseTimeToDate(t['Fajr'], tomorrow);
+  return {name: 'Fajr', time: fajr};
+}
+
+function formatDuration(ms){
+  if(ms<=0) return '00:00:00';
+  const s = Math.floor(ms/1000);
+  const hh = String(Math.floor(s/3600)).padStart(2,'0');
+  const mm = String(Math.floor((s%3600)/60)).padStart(2,'0');
+  const ss = String(s%60).padStart(2,'0');
+  return `${hh}:${mm}:${ss}`;
+}
+
+function updateProgress(prev, next, now){
+  const total = next - prev;
+  const done = now - prev;
+  const pct = Math.max(0, Math.min(1, done/total));
+  $('progressBar').style.width = `${pct*100}%`;
+}
+
+// -------------------- Main flow --------------------
+async function loadTimings({lat, lon, city} = {}){
+  try{
+    const method = parseInt($('methodSelect').value,10) || 2;
+    let data;
+    if(lat!=null && lon!=null){
+      data = await fetchTimingsByCoords(lat, lon, method);
+    } else if(city){
+      data = await fetchTimingsByCity(city, method);
+    } else {
+      throw new Error('Parameter lokasi tidak disediakan');
+    }
+    if(data.code !== 200) throw new Error('API Aladhan error');
+    timings = data.data.timings;
+    renderTimes(timings);
+    // get city detail
+    const meta = data.data.meta || {};
+    let cityText = '';
+    if(lat!=null && lon!=null){
+      try{
+        const geo = await reverseGeocode(lat, lon);
+        const addr = geo.address || {};
+        const name = addr.city||addr.town||addr.village||addr.county||'Lokasi Anda';
+        const country = addr.country || '';
+        cityText = `${name}, ${country}`;
+      }catch(e){
+        cityText = meta.timezone || 'Lokasi';
+      }
+    } else if(city){
+      cityText = city;
+    } else {
+      cityText = meta.timezone || 'Lokasi';
+    }
+    $('cityHeader').textContent = `Jadwal: ${cityText}`;
+    $('cityDetail').textContent = cityText;
+
+    const next = findNextPrayer(timings);
+    startCountdown(next);
+  }catch(err){
+    alert('Gagal memuat jadwal: ' + (err.message||err));
+  }
+}
+
+function tickCountdown(){
+  if(!currentNext) return;
+  const now = new Date();
+  const diff = currentNext.time - now;
+  $('countdown').textContent = formatDuration(diff);
+  $('localTime').textContent = now.toLocaleTimeString();
+  // progress: between previous prayer time and next
+  // Find previous prayer time
+  const order = ['Fajr','Dhuhr','Asr','Maghrib','Isha'];
+  let prevName = 'Fajr';
+  for(const name of order){
+    const d = parseTimeToDate(timings[name], now);
+    if(d < now) prevName = name;
+  }
+  const prev = parseTimeToDate(timings[prevName], new Date());
+  updateProgress(prev, currentNext.time, now);
+
+  if(diff <= 0){
+    // arrived
+    showNotification('Waktu Sholat', `Sekarang waktunya ${currentNext.name}`);
+    if($('soundToggle').checked) playAdhanShort();
+    // reload timings (to update next)
+    // if we have city or geolocation stored
+    if(window._lastLocation){
+      loadTimings(window._lastLocation);
+    }
+  }
+}
+
+function startCountdown(next){
+  currentNext = next;
+  $('nextName').textContent = next.name;
+  $('nextTime').textContent = next.time.toLocaleString();
+  if(countdownInterval) clearInterval(countdownInterval);
+  tickCountdown();
+  countdownInterval = setInterval(tickCountdown, 1000);
+}
+
+// -------------------- Buttons/EventBindings --------------------
+$('loadCity').addEventListener('click', ()=>{
+  const city = $('cityInput').value.trim();
+  if(!city) return alert('Masukkan kota seperti: Jakarta, ID');
+  window._lastLocation = {city};
+  loadTimings({city});
+});
+
+$('useLoc').addEventListener('click', ()=>{
+  if(!navigator.geolocation) return alert('Geolocation tidak didukung');
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    const lat = pos.coords.latitude, lon = pos.coords.longitude;
+    window._lastLocation = {lat, lon};
+    await loadTimings({lat, lon});
+  }, err=>{ alert('Gagal mendapatkan lokasi: ' + err.message); }, {timeout:8000});
+});
+
+$('refresh').addEventListener('click', ()=>{ if(window._lastLocation) loadTimings(window._lastLocation); else alert('Belum ada lokasi.'); });
+$('testNotif').addEventListener('click', async ()=>{ const ok = await ensureNotifications(); showNotification('Tes Notif', 'Ini notifikasi tes untuk waktu sholat'); });
+$('testSound').addEventListener('click', ()=>{ playAdhanShort(); });
+$('notifToggle').addEventListener('change', async (e)=>{ if(e.target.checked) await ensureNotifications(); });
+
+// quick auto-load: try geolocation, else Jakarta
+window.addEventListener('load', async ()=>{
+  // restore preferences
+  $('soundToggle').checked = localStorage.getItem('sound') === '1';
+  $('notifToggle').checked = localStorage.getItem('notif') !== '0';
+
+  $('soundToggle').addEventListener('change', ()=>{ localStorage.setItem('sound', $('soundToggle').checked ? '1' : '0'); });
+  $('notifToggle').addEventListener('change', ()=>{ localStorage.setItem('notif', $('notifToggle').checked ? '1' : '0'); });
+
+  try{
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(async pos=>{
+        window._lastLocation = {lat: pos.coords.latitude, lon: pos.coords.longitude};
+        await loadTimings(window._lastLocation);
+      }, async ()=>{
+        // fallback Jakarta
+        window._lastLocation = {city: 'Jakarta, ID'};
+        await loadTimings(window._lastLocation);
+      }, {timeout:3500});
+    } else {
+      window._lastLocation = {city: 'Jakarta, ID'}; await loadTimings(window._lastLocation);
+    }
+  }catch(e){
+    console.error(e); window._lastLocation = {city: 'Jakarta, ID'}; await loadTimings(window._lastLocation);
+  }
+
+  // request notification permission if toggled on
+  if($('notifToggle').checked) await ensureNotifications();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+[
+  { "id": 1, "nama": "Jet Pribadi", "harga": 750000000000000 },
+  { "id": 2, "nama": "Kapal", "harga": 30000000000000000000 },
+  { "id": 3, "nama": "Kereta", "harga": 15000000000000 }
+]   

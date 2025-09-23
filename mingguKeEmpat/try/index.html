@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="display" placeholder="0" disabled>
+
+    <div class="buttons">
+      <!-- angka -->
+      <button>7</button><button>8</button><button>9</button><button class="operator">/</button>
+      <button>4</button><button>5</button><button>6</button><button class="operator">*</button>
+      <button>1</button><button>2</button><button>3</button><button class="operator">-</button>
+      <button>0</button><button>.</button><button>=</button><button class="operator">+</button>
+      
+      <!-- fungsi matematika -->
+      <button class="func">√</button>
+      <button class="func">^</button>
+      <button class="func">%</button>
+      <button class="func">log</button>
+      <button class="func">sin</button>
+      <button class="func">cos</button>
+      <button class="func">tan</button>
+      <button>C</button>
+    </div>
+
+    <!-- konversi mata uang -->
+    <div class="currency">
+      <h3>Currency Converter</h3>
+      <input type="number" id="amount" placeholder="Enter amount">
+      <select id="from">
+        <option value="USD">USD</option>
+        <option value="IDR">IDR</option>
+        <option value="EUR">EUR</option>
+        <option value="JPY">JPY</option>
+      </select>
+      <span>→</span>
+      <select id="to">
+        <option value="IDR">IDR</option>
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="JPY">JPY</option>
+      </select>
+      <button id="convert">Convert</button>
+      <p id="result"></p>
+    </div>
+  </div>
+
+  <script src="java.js"></script>
+</body>
+</html>

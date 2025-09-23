@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOAL 11 SAMPAI 15</title>
+    <style>
+        body { font-family: Arial; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .soal { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        button, input { margin: 5px; padding: 8px; }
+        ul { list-style-type: none; padding: 0; }
+        li { padding: 8px; margin: 5px 0; background: #f0f0f0; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>SOAL 11 SAMPAI 15</h1>
+
+    <div class="soal">
+        <h3>11. events</h3>
+        <button id="multiBtn">Klik Saya</button>
+        <p id="multiText">Event akan berjalan</p>
+    </div>
+
+    <div class="soal">
+        <h3>12. Hapus event</h3>
+        <button id="removeEventBtn">Tombol Normal</button>
+        <button id="removeBtn">Hapus Event</button>
+    </div>
+
+    <div class="soal">
+        <h3>13. Submit</h3>
+        <form id="simpleForm">
+            <input type="text" id="nameInput" placeholder="Nama" required>
+            <button type="submit">Submit</button>
+        </form>
+        <p id="formResult"></p>
+    </div>
+
+    <div class="soal">
+        <h3>14. Event delegation</h3>
+        <ul id="itemList">
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>
+    </div>
+
+    <div class="soal">
+        <h3>15. Once Event</h3>
+        <button id="onceBtn">Klik Sekali Saja</button>
+    </div>
+
+    <script type="module">
+        import { initBagianC } from './java1.js';
+        initBagianC();
+    </script>
+</body>
+</html>

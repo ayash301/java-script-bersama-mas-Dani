@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOAL 1 SAMPAI 5</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .soal {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button, input {
+            margin: 5px;
+            padding: 8px;
+        }
+        img {
+            height: 150px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>SOAL 1 SAMPAI 5</h1>
+
+    <div class="soal">
+        <h3>1. pertombolan</h3>
+        <button onclick="alert('hahahihi!!')">Klik Saya</button>
+    </div>
+
+    <div class="soal">
+        <h3>2. Gambar bisa berubah</h3>
+        <img src=https://via.placeholder.com/150/3498db/ffffff?text=Klik+Saya` 
+             onclick="this.src='https://www.google.com/imgres?q=monyet&imgurl=https%3A%2F%2Fawsimages.detik.net.id%2Fcommunity%2Fmedia%2Fvisual%2F2017%2F12%2F06%2F6414c1ae-fcd1-49a6-8316-4a71c29f93ff_43.jpg%3Fw%3D600%26q%3D90&imgrefurl=https%3A%2F%2Fnews.detik.com%2Finternasional%2Fd-3757431%2Fmonyet-indonesia-yang-selfie-dipilih-jadi-person-of-the-year&docid=5xIsMCk0mkR5UM&tbnid=9pozFOU-5HbFxM&vet=12ahUKEwjB-u60qO6PAxUbzTgGHZegK38QM3oECBcQAA..i&w=600&h=450&hcb=2&ved=2ahUKEwjB-u60qO6PAxUbzTgGHZegK38QM3oECBcQAA'">
+    </div>
+
+    <div class="soal">
+        <h3>3. dua klik</h3>
+        <p ondblclick="this.innerText='Sudah Double Click!'">Double click saya</p>
+    </div>
+
+    <div class="soal">
+        <h3>4. Input </h3>
+        <input type="text" placeholder="Klik di sini" 
+               onfocus="this.placeholder='tulis disini...'" 
+               onblur="this.placeholder='lagi fokuus'">
+    </div>
+
+    <div class="soal">
+        <h3>5. Mouse </h3>
+        <button onmousedown="this.innerText='Mouse Down'" 
+                onmouseup="this.innerText='Mouse Up'">Klik dan Tahan</button>
+    </div>
+</body>
+</html>

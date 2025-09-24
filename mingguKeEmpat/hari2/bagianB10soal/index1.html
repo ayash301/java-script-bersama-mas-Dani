@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <h1>SOAL 6-15</h1>
+
+  <form id="form1">
+    <!-- Soal 6 -->
+    <label>Nama:
+      <input type="text" id="nama" required>
+    </label><br><br>
+
+    <!-- Soal 7-->
+    <label>Usia:
+      <input type="number" id="usia" min="18" max="60">
+    </label><br><br>
+
+    <!-- Soal 8 -->
+    <label>Password:
+      <input type="password" id="password" minlength="8">
+    </label><br><br>
+
+    <!-- Soal 9 -->
+    <label>Email:
+      <input type="email" id="email">
+    </label><br><br>
+
+    <!-- Soal 10 -->
+    <label>No HP:
+      <input type="text" id="nohp" pattern="[0-9]{10,12}">
+    </label><br><br>
+
+    <!-- Soal 11 -->
+    <label>Username:
+      <input type="text" pattern="[a-z]+" placeholder="username huruf kecil">
+    </label><br><br>
+
+    <!-- Soal 12 -->
+    <label>Kode Pos:
+      <input type="text" pattern="[0-9]{5}">
+    </label><br><br>
+
+    <!-- Soal 13 -->
+    <label>Tanggal Lahir:
+      <input type="date" max="2019-12-31">
+    </label><br><br>
+
+    <!-- Soal 14-->
+    <label>Website:
+      <input type="url">
+    </label><br><br>
+
+    <!-- Soal 15 -->
+    <label>Angka Genap:
+      <input type="text" id="angkaGenap" pattern="(0|2|4|6|8)$">
+    </label><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>

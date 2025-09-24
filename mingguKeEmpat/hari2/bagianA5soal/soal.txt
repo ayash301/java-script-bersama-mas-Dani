@@ -1,0 +1,8 @@
+1. fungsi atribut required pada form input digunakan untuk mencegah submit kalo kosong
+2.validasi email dengan pattern 
+ex:pattern=".+@.+"
+3.min (utk angka/tanggal), minlenght (buat teks)
+4.mencegah relod pake event.prevemtdefault()
+5.HTML validation otomatis, JS validation pakai logika custom
+
+
